@@ -142,21 +142,12 @@ void solve()
     // }
     // ll z; cin>>z;
     // cout<<a[z].size();
-    ll n, c, ans = 0;
-    cin >> n >> c;
-    ll a[n];
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-
-    for (int i = 0; i < n - 1; i++)
-    {
-        if (a[i + 1] - a[i] > c)
-            ans = 0;
-        else
-            ans++;
+    string s;
+    cin >> s;
+    if(s[0] != s.back()){
+        s[0] = s.back();
     }
-
-    cout << ans + 1;
+    cout << s << endl;
 }
 
 void dfs(ll u)
@@ -176,7 +167,7 @@ int main()
 {
     fast_out();
     int t = 1;
-    //cin >> t;
+    cin >> t;
     wh(t--)
     {
         solve();
