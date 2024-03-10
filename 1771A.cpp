@@ -1,9 +1,12 @@
-
 /* YangStone Come To Play */
-
+#include <cstdio>
+#include <vector>
 #include <bits/stdc++.h>
+#include <conio.h>
+
 using namespace std;
 
+#define RFOR(i, a, b) for (int(i) = (a)-1; (i) >= (b); --(i))
 #define nl << '\n'
 #define vti vector<int>
 #define vtll vector<long long>
@@ -12,12 +15,22 @@ using namespace std;
 #define ll long long
 #define lg long
 #define db double
+#define MOD 1000000007
+#define dbg(x)         \
+	cerr << #x << " "; \
+	_print(x);         \
+	cerr << endl;
 #define pb push_back
 #define bg begin()
 #define ed end()
 #define rbg rbegin()
 #define red rend()
-#define sz size()
+#define dbg(x...)        \
+	cerr << #x << " : "; \
+	_print(x)
+
+#define dbg(...)
+#define RFOR(i, a, b) for (int(i) = (a)-1; (i) >= (b); --(i))
 #define sp << " "
 #define fr(i, l, r) for (int i = l; i <= r; i++)
 #define FOR(i, a, b) for (int(i) = (a); (i) < (b); ++(i))
@@ -25,28 +38,50 @@ using namespace std;
 #define wh while
 #define fat(x, a) for (auto &x : a)
 #define srt(x) sort(x.bg, x.ed)
+#define printall(a)       \
+	for (auto &(i) : (a)) \
+	cout << i << ' '
 #define FOR(i, a, b) for (int(i) = (a); (i) < (b); ++(i))
 #define nlp(i, n) for (int i = 0; i < (int)(n); ++i)
 #define rsrt(x) sort(x.rbg, x.red)
 #define all(r) r.begin(), r.end()
 #define vi vector<int>
+
 #define rall(r) r.rbegin(), r.rend()
 #define fast_out()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL)
+	ios_base::sync_with_stdio(false); \
+	cin.tie(NULL)
 const int mod = 1e9 + 7;
 const int N = 100010;
+const ll INF = 2e18 + 99;
 
-int bin_pow(int a, int b, int mod)
+// void file() {freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);}
+int bin_pow(int a, int b, int mod) // luy thua nhi phan
 {
-    if (b == 0)
-        return 1;
-    int tmp = bin_pow(a, b / 2, mod);
-    if ((b & 1) == false)
-    {
-        return (tmp * tmp) % mod;
-    }
-    return (a * (tmp * tmp) % mod) % mod;
+	if (b == 0)
+		return 1;
+	int tmp = bin_pow(a, b / 2, mod);
+	if ((b & 1) == false)
+	{
+		return (tmp * tmp) % mod;
+	}
+	return (a * (tmp * tmp) % mod) % mod;
+}
+
+vector<int> factorize(int n)
+{
+	vector<int> res;
+	for (int i = 2; i * i <= n; i++)
+	{
+		while (n % i == 0)
+		{
+			res.push_back(i);
+			n /= i;
+		}
+	}
+	if (n != 1)
+		res.push_back(n);
+	return res;
 }
 //* Delete
 /*var a = document.querySelectorAll(".MJX_Assistive_MathML")
@@ -54,148 +89,75 @@ a.forEach(s=> s.remove())
 */
 bool compare(string &a, string &b)
 {
-    return a + b > b + a;
+	return a + b > b + a;
 }
-vector<ll> a[1001];
-bool visited[1001];
+bool isPerfectSquare(ll n)
+{
+	ll temp = sqrt(n);
+
+	if (temp * temp == n)
+		return true;
+	return false;
+}
+bool check(char r)
+{
+	return (r == 'a' || r == 'e');
+}
+bool isPerfectSquare(int n)
+{
+	int rt = sqrt(n);
+	return (rt * rt == n);
+}
+bool isPrime(int n)
+{
+	for (int i = 2; i * i <= n; ++i)
+	{
+		if (n % i == 0)
+			return false;
+	}
+
+	return true;
+}
+ll func(ll n)
+{
+	ll sum = 0;
+	while (n > 0)
+	{
+		sum += n % 10;
+		n /= 10;
+	}
+	return sum;
+}
+
 void solve()
 {
-    // ll n;
-    // cin >> n;
-    // ll a[n + 1][n + 1] ;
-    // vector<pair<int, int>> edge;
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     for (int j = 1; j <= n; j++)
-    //     {
-    //         cin >> a[i][j];
-    //     }
-    // }
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     for (int j = 1; j <= n; j++)
-    //     {
-    //         if (a[i][j] && i < j)
-    //         {
-    //             edge.push_back({i, j});
-    //         }
-    //     }
-    // }
-    // for(auto x : edge){
-    //     cout << x.first << " " << x.second << endl;
-    // }
-    // ll n, m;
-    // cin >> n >> m;
-    // ll a[n + 1][n + 1] = {0};
-    // for (int i = 0; i < m; i++)
-    // {
-    //     ll x, y,c;
-    //     cin >> x >> y;
-    //     a[y][x] = a[x][y] = 1;
-    // }
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     for (int j = 1; j <= n; j++)
-    //     {
-    //         cout << a[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // ll n, m;
-    // cin >> n >> m;
-    // for (int i = 0; i < m; i++)
-    // {
-    //     ll x, y;
-    //     cin >> x >> y;
-    //     a[x].push_back(y);
-    //     a[y].push_back(x);
-    // }
-    // memset(visited, false, sizeof(visited));
-    // }
-    // ll n, m;
-    // cin >> n >> m;
-    // vector<ll> a[n + 1];
-    // for (int i = 0; i < m; i++)
-    // {
-    //     ll x, y;
-    //     cin >> x >> y;
-    //     a[x].push_back(y);
-    //     a[y].push_back(x);
-    // }
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     cout << i << "->";
-    //     int size = a[i].size();
-    //     for (int j = 0; j < size; j++) {
-    //         if (j == size - 1) {
-    //             cout << a[i][j];
-    //         } else {
-    //             cout << a[i][j] << "->";
-    //         }
-    //     }
-    //     cout << "|" << endl;
-    // ll n,m;  cin>>n>>m;
-    // for(int i=0;i<m;i++)
-    // {
-    //     ll x,y; cin>>x>>y;
-    //     a[x].push_back(y);
-    //     a[y].push_back(x);
-    // }
-    // ll z; cin>>z;
-    // cout<<a[z].size();
-    ll n;
-    cin >> n;
-
-    ll arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-
-    sort(arr, arr + n);
-    ll cOfMin = 0, cOfMax = n - 1;
-
-    if (arr[0] == arr[n - 1])
-    {
-        cout << n * (n - 1) << endl;
-        return;
-    }
-
-    while (arr[0] == arr[cOfMin])
-    {
-        cOfMin++;
-    }
-    while (arr[n - 1] == arr[cOfMax])
-    {
-        cOfMax--;
-    }
-
-    cOfMax = n - cOfMax - 1;
-    cout << 2 * (cOfMax * cOfMin) << endl;
+	int n;
+	cin >> n;
+	int a[n];
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+	int ans = 0;
+	for (int i = 0; i + 1 < n; i++)
+	{
+		ans += (!((a[i] ^ a[i + 1]) & 1));
+	}
+	cout << ans << endl;
 }
-
-void dfs(ll u)
-{
-    cout << u << " ";
-    visited[u] = true;
-    for (ll v : a[u])
-    {
-        if (!visited[v])
-        {
-            dfs(v);
-        }
-    }
-}
-
 int main()
 {
-    fast_out();
-    int t = 1;
-     cin >> t;
-    wh(t--)
-    {
-        solve();
-        // dfs(0);
-        // cout << endl;
-    }
 
-    return 0;
+	fast_out();
+	int t = 1;
+	cin >> t;
+	wh(t--)
+	{
+
+		solve();
+
+		// cout << endl;
+	}
+
+	return 0;
 }
