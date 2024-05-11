@@ -3,8 +3,11 @@
 #include <cstdio>
 #include <vector>
 #include <bits/stdc++.h>
+#include <conio.h>
+
 using namespace std;
 
+#define RFOR(i, a, b) for (int(i) = (a) - 1; (i) >= (b); --(i))
 #define nl << '\n'
 #define vti vector<int>
 #define vtll vector<long long>
@@ -23,8 +26,12 @@ using namespace std;
 #define ed end()
 #define rbg rbegin()
 #define red rend()
-#define sz size()
-#define RFOR(i, a, b) for (int(i) = (a)-1; (i) >= (b); --(i))
+#define dbg(x...)        \
+	cerr << #x << " : "; \
+	_print(x)
+#define uceil(a, b) ((a + b - 1) / (b))
+#define dbg(...)
+#define RFOR(i, a, b) for (int(i) = (a) - 1; (i) >= (b); --(i))
 #define sp << " "
 #define fr(i, l, r) for (int i = l; i <= r; i++)
 #define FOR(i, a, b) for (int(i) = (a); (i) < (b); ++(i))
@@ -47,7 +54,7 @@ using namespace std;
 	cin.tie(NULL)
 const int mod = 1e9 + 7;
 const int N = 100010;
-const ll INF = 2e18 + 99;
+const ll INF = 1e9 + 7;
 
 // void file() {freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);}
 int bin_pow(int a, int b, int mod) // luy thua nhi phan
@@ -61,34 +68,22 @@ int bin_pow(int a, int b, int mod) // luy thua nhi phan
 	}
 	return (a * (tmp * tmp) % mod) % mod;
 }
-// vector<int> factorize(int n)
-// {
-//     vector <int> res;
-//     for (int i=2; i*i<=n; i++)
-//         {
-//         while (n%i==0)
-//             {
-//             res.push_back(i);
-//             n/=i;
-//         }
-//     }
-//     if (n!=1) res.push_back(n);
-//     return res;
-// }
-// vector<int> factorize(int n)
-// {
-//     vector <int> res;
-//     for (int i=2; i*i<=n; i++)
-//         {
-//         while (n%i==0)
-//             {
-//             res.push_back(i);
-//             n/=i;
-//         }
-//     }
-//     if (n!=1) res.push_back(n);
-//     return res;
-// }
+
+vector<int> factorize(int n)
+{
+	vector<int> res;
+	for (int i = 2; i * i <= n; i++)
+	{
+		while (n % i == 0)
+		{
+			res.push_back(i);
+			n /= i;
+		}
+	}
+	if (n != 1)
+		res.push_back(n);
+	return res;
+}
 //* Delete
 /*var a = document.querySelectorAll(".MJX_Assistive_MathML")
 a.forEach(s=> s.remove())
@@ -109,7 +104,58 @@ bool check(char r)
 {
 	return (r == 'a' || r == 'e');
 }
+bool isPerfectSquare(int n)
+{
+	int rt = sqrt(n);
+	return (rt * rt == n);
+}
+bool isPrime(int n)
+{
+	for (int i = 2; i * i <= n; ++i)
+	{
+		if (n % i == 0)
+			return false;
+	}
 
+	return true;
+}
+ll func(ll n)
+{
+	ll sum = 0;
+	while (n > 0)
+	{
+		sum += n % 10;
+		n /= 10;
+	}
+	return sum;
+}
+bool cmp(ll l, ll r)
+{
+	return l > r;
+}
+void build(int l, int r, vector<int> const &a, vector<int> &d, int curD = 0)
+{
+	if (r < l)
+	{
+		return;
+	}
+	if (l == r)
+	{
+		d[l] = curD;
+		return;
+	}
+	int m = l;
+	for (int i = l + 1; i <= r; i++)
+	{
+		if (a[m] < a[i])
+		{
+			m = i;
+		}
+	}
+	d[m] = curD;
+	build(l, m - 1, a, d, curD + 1);
+	build(m + 1, r, a, d, curD + 1);
+}
 void solve()
 {
 	ll x1, x2, x3, x4, y1, y2, y3, y4;
@@ -172,15 +218,13 @@ void solve()
 }
 int main()
 {
-
 	fast_out();
 	int t = 1;
-	 cin >> t;
+	// cin >> t;
 	wh(t--)
 	{
 		solve();
-
-		//cout << endl;
+		// cout << endl;
 	}
 
 	return 0;
