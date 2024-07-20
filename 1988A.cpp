@@ -4,7 +4,7 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <conio.h>
-
+#include <algorithm>
 using namespace std;
 
 #define RFOR(i, a, b) for (int(i) = (a) - 1; (i) >= (b); --(i))
@@ -16,7 +16,7 @@ using namespace std;
 #define ll long long
 #define lg long
 #define db double
-#define MOD 1000000007
+#define MOD 998244353
 #define dbg(x)         \
 	cerr << #x << " "; \
 	_print(x);         \
@@ -48,6 +48,7 @@ using namespace std;
 #define all(r) r.begin(), r.end()
 #define vi vector<int>
 const int MAXN = 4e5 + 5;
+#define forn(i, n) for (int i = 0; i < int(n); ++i)
 #define rall(r) r.rbegin(), r.rend()
 #define fast_out()                    \
 	ios_base::sync_with_stdio(false); \
@@ -133,16 +134,30 @@ bool cmp(ll l, ll r)
 {
 	return l > r;
 }
+ll binpow(ll a, ll b)
+{
+	ll ans = 1ll;
+	while (b > 0)
+	{
+		if (b & 1)
+			ans *= a;
+		a *= a;
+		b >>= 1;
+	}
+	return ans;
+}
+
 void solve()
 {
-	ll n;
-	cin >> n;
-	if (n % 3)
+	int n, k;
+	cin >> n >> k;
+	int ans = 0;
+	while (n && n != 1)
 	{
-		cout << "First" << endl;
+		n -= min(n, k - 1);
+		++ans;
 	}
-	else
-		cout << "Second" << endl;
+	cout << ans << endl;
 }
 int main()
 {
